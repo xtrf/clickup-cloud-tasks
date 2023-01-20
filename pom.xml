@@ -53,6 +53,11 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-tasks</artifactId>
+      <version>1.29.1</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.cloud.functions</groupId>
       <artifactId>functions-framework-api</artifactId>
       <scope>provided</scope>
