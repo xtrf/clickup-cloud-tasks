@@ -19,7 +19,7 @@ import jakarta.inject.Inject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-@Controller("/clickupCloudFunctions")
+@Controller("/clickup-cloud-tasks")
 class ClickupCloudTasksCreatorController {
     private final static Logger LOGGER = LoggerFactory.getLogger(this.simpleName)
 
@@ -87,20 +87,4 @@ class ClickupCloudTasksCreatorController {
         "Example Response"
     }
 
-    @Post
-    SampleReturnMessage postMethod(@Body SampleInputMessage inputMessage) {
-        httpTaskCreator.createHttpTask(gcpProjectId, gcpLocationId, gcpQueueId)
-      new SampleReturnMessage(returnMessage: "Hello ${inputMessage.name}, thank you for sending the message")
-    }
-}
-
-@TupleConstructor
-@Introspected
-class SampleInputMessage {
-    String name
-}
-
-@Introspected
-class SampleReturnMessage {
-    String returnMessage
 }
