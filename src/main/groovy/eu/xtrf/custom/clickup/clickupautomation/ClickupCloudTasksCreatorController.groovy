@@ -8,13 +8,8 @@ import eu.xtrf.custom.clickup.clickupautomation.config.UrlConfigurationPropertie
 import eu.xtrf.custom.clickup.clickupautomation.util.HttpTaskCreator
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Produces
-import io.micronaut.http.MediaType
-import io.micronaut.core.annotation.Introspected
-import groovy.transform.TupleConstructor
 import jakarta.inject.Inject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -80,11 +75,4 @@ class ClickupCloudTasksCreatorController {
     private String getFullyQueueName() {
         QueueName.of(gcpProjectId, gcpLocationId, gcpQueueId).toString()
     }
-
-    @Produces(MediaType.TEXT_PLAIN)
-    @Get
-    String index() {
-        "Example Response"
-    }
-
 }
