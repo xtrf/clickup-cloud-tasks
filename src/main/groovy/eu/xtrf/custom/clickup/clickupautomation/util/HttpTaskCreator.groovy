@@ -17,6 +17,7 @@ class HttpTaskCreator {
                 HttpRequest.newBuilder()
                 .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
                 .setUrl(url)
+                .putHeaders("Content-Type", "application/json")
                 .setHttpMethod(HttpMethod.POST)
                 .build()
         )
