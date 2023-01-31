@@ -7,6 +7,7 @@ import com.google.cloud.tasks.v2.Task
 import eu.xtrf.custom.clickup.clickupautomation.config.UrlConfigurationProperties
 import eu.xtrf.custom.clickup.clickupautomation.util.HttpTaskCreator
 import io.micronaut.context.annotation.Value
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Body
@@ -18,61 +19,65 @@ import org.slf4j.LoggerFactory
 class ClickupCloudTasksCreatorController {
     private final static Logger LOGGER = LoggerFactory.getLogger(this.simpleName)
 
-    @Inject
-    HttpTaskCreator httpTaskCreator
+    private final CloudTasksClient client = CloudTasksClient.create()
+    private final ObjectMapper objectMapper = new ObjectMapper()
 
     @Inject
-    UrlConfigurationProperties urlConfigurationProperties
+    private HttpTaskCreator httpTaskCreator
 
-    CloudTasksClient client = CloudTasksClient.create()
-    ObjectMapper objectMapper = new ObjectMapper()
+    @Inject
+    private UrlConfigurationProperties urlConfigurationProperties
 
     @Value('${gcpProjectId}')
-    String gcpProjectId
+    private String gcpProjectId
 
     @Value('${gcpLocationId}')
-    String gcpLocationId
+    private String gcpLocationId
 
     @Value('${gcpQueueId}')
-    String gcpQueueId
+    private String gcpQueueId
 
     @Post("/task/specification")
-    void handleTaskCreatedInSpecificationsList(@Body Object body) {
-        String queuePath = getFullyQueueName()
+    HttpResponse handleTaskCreatedInSpecificationsList(@Body Object body) {
+        String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskSpecificationCreated
         Task task = client.createTask(queuePath, httpTaskCreator.createHttpTask(url, bodyAsString))
         LOGGER.info("Task ${task.name} to Specifications list has been created")
+        return HttpResponse.ok()
     }
 
     @Post("/task/task")
-    void handleTaskCreatedInTasksList(@Body Object body) {
-        String queuePath = getFullyQueueName()
+    HttpResponse handleTaskCreatedInTasksList(@Body Object body) {
+        String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskTaskCreated
         Task task = client.createTask(queuePath, httpTaskCreator.createHttpTask(url, bodyAsString))
         LOGGER.info("Task ${task.name} to Tasks list has been created")
+        return HttpResponse.ok()
     }
 
     @Post("/task/bug")
-    void handleTaskCreatedInBugsList(@Body Object body) {
-        String queuePath = getFullyQueueName()
+    HttpResponse handleTaskCreatedInBugsList(@Body Object body) {
+        String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskBugCreated
         Task task = client.createTask(queuePath, httpTaskCreator.createHttpTask(url, bodyAsString))
         LOGGER.info("Task ${task.name} to Bugs list has been created")
+        return HttpResponse.ok()
     }
 
     @Post("/task/updated")
-    void handleTaskUpdated(@Body Object body) {
-        String queuePath = getFullyQueueName()
+    HttpResponse handleTaskUpdated(@Body Object body) {
+        String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskUpdated
         Task task = client.createTask(queuePath, httpTaskCreator.createHttpTask(url, bodyAsString))
         LOGGER.info("Task ${task.name} to update CU task has been created")
+        return HttpResponse.ok()
     }
 
-    private String getFullyQueueName() {
+    private String getFullQueueName() {
         QueueName.of(gcpProjectId, gcpLocationId, gcpQueueId).toString()
     }
 }
