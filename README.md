@@ -23,12 +23,6 @@ First build the function with:
 $ ./mvnw clean package
 ```
 
-Then `cd` into the `target` directory (deployment has to be done from the location where the JAR lives):
-
-```bash
-$ cd target
-```
-
 Now run:
 
 ```bash
