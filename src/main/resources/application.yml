@@ -1,3 +1,12 @@
 micronaut:
   application:
     name: clickupCloudFunctions
+gcpProjectId: clickup-integration-349412
+gcpLocationId: us-central1
+gcpQueueId: clickup-automation-queue
+clickupAutomation:
+  url: https://clickup-integration-349412.lm.r.appspot.com/clickup-api
+  clickupTaskBugCreated: /task/bug
+  clickupTaskTaskCreated: /task/task
+  clickupTaskSpecificationCreated: /task/specification
+  clickupTaskUpdated: /task/updated
