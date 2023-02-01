@@ -8,9 +8,9 @@ import eu.xtrf.custom.clickup.clickupautomation.config.UrlConfigurationPropertie
 import eu.xtrf.custom.clickup.clickupautomation.util.HttpTaskCreator
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
-import io.micronaut.http.annotation.Body
 import jakarta.inject.Inject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -39,6 +39,7 @@ class ClickupCloudTasksCreatorController {
 
     @Post("/task/specification")
     HttpResponse handleTaskCreatedInSpecificationsList(@Body Object body) {
+        LOGGER.info("received at /task/specification: ${objectMapper.writeValueAsString(body)}")
         String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskSpecificationCreated
@@ -49,6 +50,7 @@ class ClickupCloudTasksCreatorController {
 
     @Post("/task/task")
     HttpResponse handleTaskCreatedInTasksList(@Body Object body) {
+        LOGGER.info("received at /task/task: ${objectMapper.writeValueAsString(body)}")
         String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskTaskCreated
@@ -59,6 +61,7 @@ class ClickupCloudTasksCreatorController {
 
     @Post("/task/bug")
     HttpResponse handleTaskCreatedInBugsList(@Body Object body) {
+        LOGGER.info("received at /task/bug: ${objectMapper.writeValueAsString(body)}")
         String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskBugCreated
@@ -69,6 +72,7 @@ class ClickupCloudTasksCreatorController {
 
     @Post("/task/updated")
     HttpResponse handleTaskUpdated(@Body Object body) {
+        LOGGER.info("received at /task/updated: ${objectMapper.writeValueAsString(body)}")
         String queuePath = getFullQueueName()
         String bodyAsString = objectMapper.writeValueAsString(body)
         String url = urlConfigurationProperties.url + urlConfigurationProperties.clickupTaskUpdated

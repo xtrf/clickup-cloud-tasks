@@ -109,6 +109,10 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <groupId>io.micronaut.gcp</groupId>
+      <artifactId>micronaut-gcp-logging</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut.test</groupId>
       <artifactId>micronaut-test-spock</artifactId>
       <scope>test</scope>
